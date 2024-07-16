@@ -1,0 +1,12 @@
+button{
+    font-size: 30px;
+    color: violet;
+    margin: 20px;
+}
+
+.container {
+    padding: 20px;
+}
+.options {
+    margin-top: 10px;
+}

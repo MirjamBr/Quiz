@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Hoi Klopp, willkomme im Quiz 😊</h1>
+
+    Ich han 6 Froge für dech.
+    <div id="user-info"></div>
+    <div id="Punkte">Punkte: <span id="punkte-value">0</span></div>
+
+    <script>
+        const userName = localStorage.getItem('userName');
+        const userAvatar = localStorage.getItem('userAvatar');
+        const avatarImages = {
+            'Piglet': 'Piglet.jpeg',
+            'Sadness': 'Sadness.jpeg',
+            'Jiminy': 'Jiminy.jpeg'
+        };
+
+        if (userName && userAvatar) {
+            const userInfoDiv = document.getElementById('user-info');
+            userInfoDiv.innerHTML = `<p> Klopp </p>
+                                     <img src="${avatarImages[userAvatar]}" alt="${userAvatar}" width="100">`;
+        } else {
+            document.body.innerHTML += `<p>No user data found. Please go back and enter your details.</p>`;
+        }
+
+        // Set initial points to 0
+        let points = 0;
+        const pointsValue = document.getElementById('punkte-value');
+        pointsValue.textContent = points;
+
+        // Save points to localStorage
+        localStorage.setItem('points', points.toString());
+
+        function goToQuestion1() {
+            window.location.href = 'question1.html'; // Replace with the actual URL of question1.html
+        }
+    </script>
+
+<button onclick="goToQuestion1()">Start Quiz</button>
+
+</body>
+</html>

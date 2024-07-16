@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Score</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 40px;
+            color: orange;
+        }
+        img {
+            margin-top: 20px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Diini Punktzahl:</h1>
+        <p id="final-score"></p>
+        <img id="user-avatar" src="" alt="User Avatar">
+    </div>
+
+    <script>
+        // Get the score from localStorage
+        const points = localStorage.getItem('points');
+        const userAvatar = localStorage.getItem('userAvatar');
+        const avatarImages = {
+            'Piglet': 'Piglet2.png',
+            'Sadness': 'Sadness2.jpeg',
+            'Jiminy': 'Jiminy.jpeg'
+        };
+
+        // Display the score on the page
+        document.getElementById('final-score').textContent = points;
+
+        // Display the user avatar
+        if (userAvatar && avatarImages[userAvatar]) {
+            document.getElementById('user-avatar').src = avatarImages[userAvatar];
+            document.getElementById('user-avatar').alt = userAvatar;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Frog 3</h1>
+        <p>Welli Marke isch bekannt für siini ikonische Handtäschli namens "Speedy"?</p>
+        
+        <div class="options">
+            <input type="radio" id="Gucci" name="answer" value="Gucci" onclick="checkAnswer(this)">
+            <label for="Gucci">Gucci</label><br>
+            
+            <input type="radio" id="Prada" name="answer" value="Prada" onclick="checkAnswer(this)">
+            <label for="Prada">Prada</label><br>
+            
+            <input type="radio" id="Louis Vuitton" name="answer" value="Louis Vuitton" onclick="checkAnswer(this)">
+            <label for="Louis Vuitton">Louis Vuitton</label><br>
+    
+            <input type="radio" id="Versace" name="answer" value="Versace" onclick="checkAnswer(this)">
+            <label for="Versace">Versace</label><br>
+        </div>
+        
+        <p>Punkte: <span id="points">0</span></p>
+        <button onclick="submitAnswer()">Submit Answer</button>
+        <p id="next-question-link" style="display: none;"><a href="question4.html">Wiiter</a></p>
+        
+        <div id="user-info"></div> <!-- Placeholder for user info -->
+
+    </div>
+    
+    <script>
+        // Initialize points from localStorage if available
+        let points = localStorage.getItem('points') ? parseInt(localStorage.getItem('points')) : 0;
+        document.getElementById('points').textContent = points;
+
+        // Retrieve user avatar from localStorage
+        const userAvatar = localStorage.getItem('userAvatar');
+        const avatarImages = {
+            'Piglet': 'Piglet.jpeg',
+            'Sadness': 'Sadness.jpeg',
+            'Jiminy': 'Jiminy.jpeg'
+        };
+
+        // Display user info and avatar if available
+        if (userAvatar && avatarImages[userAvatar]) {
+            const userInfoDiv = document.getElementById('user-info');
+            userInfoDiv.innerHTML = `<p> Klopp </p>
+                                     <img src="${avatarImages[userAvatar]}" alt="${userAvatar}" width="100">`;
+        } else {
+            document.body.innerHTML += `<p>No user data found. Please go back and enter your details.</p>`;
+        }
+
+        let answerSubmitted = false;
+
+        function submitAnswer() {
+            if (answerSubmitted) {
+                return; // Prevent multiple submissions
+            }
+
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) {
+                alert('Please select an answer.');
+                return;
+            }
+
+            const correctAnswer = "Louis Vuitton"; // Define the correct answer for this question
+            if (selectedAnswer.value === correctAnswer) {
+                points++; // Increment points for correct answer
+                document.getElementById('points').textContent = points;
+            }
+
+            // Disable further changes to answers
+            const options = document.querySelectorAll('.options input[type="radio"]');
+            options.forEach(option => {
+                option.disabled = true;
+            });
+
+            // Mark answer as submitted
+            answerSubmitted = true;
+
+            // Show the next question link
+            document.getElementById('next-question-link').style.display = 'block';
+
+            // Save points to localStorage
+            localStorage.setItem('points', points.toString());
+        }
+    </script>
+</body>
+</html>

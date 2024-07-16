@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Hoi, schön dass du do bisch 😊</h1>
+    <h2>Bitte gib diin Name do iii:</h2>
+    <input type="text" placeholder="Name" name="" id="name-input">
+    <h2>Und do chasch dir en Avatar ussueche:</h2>
+
+    <p>
+        <input name="avatar" type="radio" value="Piglet" id="piglet"> Piglet
+        <input name="avatar" type="radio" value="Sadness" id="sadness"> Sadness
+        <input name="avatar" type="radio" value="Jiminy" id="jiminy"> Jiminy
+    </p>
+
+    <img src="Piglet.jpeg" alt="Piglet" width="75">
+    <img src="Sadness.jpeg" alt="Sadness" width="200">
+    <img src="Jiminy.jpeg" alt="Jiminy" width="50">
+
+    <p>
+        <button id="next-button" disabled>Wiiter</button>
+    </p>
+
+    <script>
+        // Function to check if the form is valid
+        function checkFormValidity() {
+            const nameInput = document.getElementById('name-input').value.trim();
+            const avatarInputs = document.querySelectorAll('input[name="avatar"]');
+            let avatarSelected = false;
+
+            // Check if any avatar is selected
+            for (const avatar of avatarInputs) {
+                if (avatar.checked) {
+                    avatarSelected = true;
+                    break;
+                }
+            }
+
+            // Enable or disable the button based on the validity
+            const nextButton = document.getElementById('next-button');
+            if (nameInput !== '' && avatarSelected) {
+                nextButton.disabled = false;
+            } else {
+                nextButton.disabled = true;
+            }
+        }
+
+        // Add event listeners
+        document.getElementById('name-input').addEventListener('input', checkFormValidity);
+        document.querySelectorAll('input[name="avatar"]').forEach(radio => {
+            radio.addEventListener('change', checkFormValidity);
+        });
+
+        // Navigate to the next page if the button is enabled
+        document.getElementById('next-button').addEventListener('click', function() {
+            if (!this.disabled) {
+                // Save name and avatar to localStorage
+                const nameInput = document.getElementById('name-input').value.trim();
+                const avatarInputs = document.querySelectorAll('input[name="avatar"]');
+                let selectedAvatar;
+                for (const avatar of avatarInputs) {
+                    if (avatar.checked) {
+                        selectedAvatar = avatar.value;
+                        break;
+                    }
+                }
+                localStorage.setItem('userName', nameInput);
+                localStorage.setItem('userAvatar', selectedAvatar);
+
+                // Redirect to quiz.html
+                window.location.href = 'quiz.html';
+            }
+        });
+    </script>
+
+</body>
+</html>
